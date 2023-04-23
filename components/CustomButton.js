@@ -9,10 +9,12 @@ export default class CustomButton extends Component {
         return(
             <View>
                 <TouchableOpacity 
+                disabled={this.props.disabled}
                 activeOpacity={0.8}
                 style={{marginTop: this.props.margin_Top}}
                 onPress={()=> {
-                    this.props.navigation.navigate(this.props.destination)
+                    this.props.destination ? this.props.navigation.navigate(this.props.destination):null,
+                    this.props.on_press ? this.props.on_press():null
                 }}
                 >
                     <View 
