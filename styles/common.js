@@ -29,7 +29,8 @@ const common = StyleSheet.create({
 
     title: {
         marginVertical: 30,
-        fontSize: 28,
+        marginTop: 60,
+        fontSize: 22,
         fontWeight: 'bold'
     },
 
@@ -38,7 +39,7 @@ const common = StyleSheet.create({
     },
 
     formContainer: {
-        marginTop: 40
+        // marginTop: 30
     },
 
     button: {

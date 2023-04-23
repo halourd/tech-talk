@@ -12,15 +12,25 @@ import {
 
 import common from "../styles/common";
 import CustomButton from "../components/CustomButton";
+import { UserApi } from "../api/user";
+import { getStorage, setStorage } from "../helper/storage";
 import CustomField from "../components/Field";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
+
+    this.UserApi = new UserApi();
     this.state = {
-      username: "",
+      email: "",
       password: "",
+      successDestination: null,
+      errMessage: ""
     };
+  }
+
+  componentDidMount(){
+    this.setState({email: "", password: ""})
   }
   render() {
     return (
@@ -38,14 +48,48 @@ export default class Login extends Component {
             type="email-address"
             placeHolder="Email Address"
             protectInput={false}
+            onChangeTxt={(email) => {
+              this.setState({ email: email });
+            }}
+            txt_value={this.state.email}
           />
-          <CustomField placeHolder="Password" protectInput={true} />
+          <CustomField 
+          placeHolder="Password" 
+          protectInput={true} 
+          onChangeTxt={(pass) => {
+            this.setState({ password: pass });
+          }}
+          txt_value={this.state.password}
+          />
 
           <CustomButton 
           navigation={this.props.navigation}
           name="LOGIN" 
           margin_Top={50} 
-          destination="Home"/>
+          destination={this.state.successDestination == "Home" ? "Home" : null }
+          on_press={async ()=>{
+            // try{
+              let [res, error] = await this.UserApi.login(this.state.email, this.state.password);
+
+              if(error){
+                // console.log(this.state.email)
+                // console.log(this.state.password)
+                // console.log('has an erorr')
+                this.setState({errMessage: error})
+                alert(this.state.errMessage)
+                this.setState({successDestination: null})
+                this.setState({email: "", password: ""})
+                console.log(error)
+              }else{
+                // console.log(this.state.email)
+                // console.log(this.state.password)
+                await setStorage('user', res.data.token);
+                console.log('[SUCCESS] Key successfully stored.')
+                this.setState({successDestination: "Home"})
+                this.props.navigation.navigate(this.state.successDestination)
+              }
+          }}
+          />
 
           <View style={common.middleTextContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>

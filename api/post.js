@@ -10,4 +10,13 @@ export class PostApi {
 
     return request.get(`posts`);
   }
+
+  create_post = async (post_data) => {
+    console.log('[DATA]', post_data)
+    const user = await getStorage('user');
+    request = new Request(user.token);
+    let new_post = post_data.trim();
+    return request.post(`post`, {post: new_post});
+  }
+  
 }

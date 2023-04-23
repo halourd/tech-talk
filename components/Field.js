@@ -15,6 +15,7 @@ export default class Field extends Component {
                     secureTextEntry={this.props.protectInput}
                     onChangeText={this.props.onChangeTxt}
                     keyboardType={`${this.props.type}`}
+                    value={this.props.txt_value}
                     />
                 </View>                
             </View>

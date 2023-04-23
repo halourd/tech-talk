@@ -12,7 +12,6 @@ export class UserApi {
   async logout() {
     const user = await getStorage("user");
     request = new Request(user.token);
-
-    return request.post("logout");
+    return request.post("logout").then(console.log('Logged out'));
   }
 }

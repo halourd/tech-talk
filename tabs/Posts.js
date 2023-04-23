@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   Modal,
+  RefreshControl,
   Image,
   TouchableWithoutFeedback,
   TouchableOpacity,
@@ -33,7 +34,9 @@ export default class Posts extends Component {
 
         this.state = {
             isModalVisible: false,
-            posts: []
+            posts: [],
+            push_post_content: '',
+            refreshing: false
         }
     }
 
@@ -54,26 +57,22 @@ export default class Posts extends Component {
                 
     }
 
-    async componentDidMount() {
-        try{
-            let [res, error] = await this.UserApi.login('halord@gmail.com', 'envtest123');
-
-            let user_token = res.data.token
-            if(res.data.token){
-                await setStorage('user', user_token);
-            }
-
-            let get_token = await getStorage('user');
-            this.Request.addHeaders([{key: 'Authorization', value: `Bearer ${get_token}`}]);
-        }catch(error){
-            console.log(error)
-        }
-
+    handleRefresh = () => {
+        this.setState({ refreshing: true });
         this.loadPosts();
+        setTimeout(() => {
+            this.setState({ refreshing: false });
+        }, 2000);
+      };
 
+    async componentDidMount() {
+        let get_token = await getStorage('user');
+        this.Request.addHeaders([{key: 'Authorization', value: `Bearer ${get_token}`}]);
+        this.loadPosts();
     }
 
     loadPosts = async () => {
+        this.setState({posts: []})
         let [res, error] = await PostApi.posts();
 
         if(res.data){
@@ -88,7 +87,13 @@ export default class Posts extends Component {
   render() {
     return (
         <View style={posts_style.mainBody}>
-            <ScrollView>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.handleRefresh}
+                    />
+                }>
                 <View style={posts_style.addPost}>
                     {/* <Ionicons name="add-outline" size={23} color="#F7FAEF" /> */}
                     <TouchableWithoutFeedback
@@ -153,14 +158,21 @@ export default class Posts extends Component {
                         multiline
                         placeholder="Post something what you want to share with the world!"
                         style={posts_style.createPostModalInput}
+                        onChangeText={(post_text) => {
+                            this.setState({push_post_content: post_text})
+                        }}
                         />
                     </View>
                     <CustomButton
                     margin_Top={20}
-                    disabled={false}
+                    disabled={this.state.push_post_content.length > 3? false: true}
+                    clickable={this.state.push_post_content.length > 3? true: false}
                     name="POST"
-                    on_press={()=> {
+                    on_press={async ()=> {
+                        console.log("Test1", this.state.push_post_content)
+                        await this.PostApi.create_post(this.state.push_post_content).then(console.log('success'));
                         this.setState({isModalVisible: false})
+                        this.loadPosts();
                     }}
                     />
                 </View>

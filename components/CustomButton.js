@@ -1,6 +1,6 @@
 
 import {Component} from 'react'
-import {Text, TextInput, View, TouchableOpacity} from 'react-native'
+import {Text, View, TouchableOpacity} from 'react-native'
 
 import common from '../styles/common';
 
@@ -11,7 +11,9 @@ export default class CustomButton extends Component {
                 <TouchableOpacity 
                 disabled={this.props.disabled}
                 activeOpacity={0.8}
-                style={{marginTop: this.props.margin_Top}}
+                style={{
+                    marginTop: this.props.margin_Top, 
+                }}
                 onPress={()=> {
                     this.props.destination ? this.props.navigation.navigate(this.props.destination):null,
                     this.props.on_press ? this.props.on_press():null
@@ -19,7 +21,8 @@ export default class CustomButton extends Component {
                 >
                     <View 
                     style={[common.button, 
-                        {
+                        {   
+                            backgroundColor: this.props.clickable ? '#252031':'#474351',
                             backgroundColor: this.props.borderOnly?'#F7FAEF':'#252031', 
                             borderWidth: this.props.borderOnly ? 2:0,
                             
