@@ -25,6 +25,7 @@ export default class CustomButton extends Component {
                         {   
                             backgroundColor: this.props.clickable ? '#252031':'#474351',
                             backgroundColor: this.props.borderOnly?'#F7FAEF':'#252031', 
+                            backgroundColor: this.props.color? this.props.color: '#252031', 
                             borderWidth: this.props.borderOnly ? 2:0,
                             
                         }]}>

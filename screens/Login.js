@@ -77,6 +77,9 @@ export default class Login extends Component {
                 console.log(error)
               }else{
                 await setStorage('user', res.data.token);
+                await setStorage('firstname', res.data.firstname);
+                await setStorage('lastname', res.data.lastname);
+                await setStorage('email', res.data.email);
                 console.log('[SUCCESS] Key successfully stored.')
                 this.setState({successDestination: "Home"})
                 this.props.navigation.navigate(this.state.successDestination)
@@ -95,6 +98,7 @@ export default class Login extends Component {
           </View>
           <CustomButton
             name="REGISTER"
+            color='#F7FAEF'
             navigation={this.props.navigation}
             destination="Register"
             margin_Top={0}

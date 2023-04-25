@@ -75,7 +75,6 @@ export default class Register extends Component {
             placeHolder="First Name" 
             protectInput={false}
             onChangeTxt={(fname)=> {
-              // this.is_fields_complete()
               this.setState({firstname: fname})
             }} 
             />
@@ -83,7 +82,6 @@ export default class Register extends Component {
             placeHolder="Last Name" 
             protectInput={false}
             onChangeTxt={(lname)=> {
-              // this.is_fields_complete()
               this.setState({lastname: lname})
             }} 
             />
@@ -91,7 +89,6 @@ export default class Register extends Component {
             placeHolder="Email Address" 
             protectInput={false}
             onChangeTxt={(email)=> {
-              // this.is_fields_complete()
               this.setState({email: email})
             }} 
             />
@@ -99,7 +96,6 @@ export default class Register extends Component {
             placeHolder="Password" 
             protectInput={true}
             onChangeTxt={(pass)=> {
-              // this.is_fields_complete()
               this.setState({password: pass})
             }} 
             />
@@ -118,7 +114,9 @@ export default class Register extends Component {
                 this.state.firstname.trim(),
                 this.state.lastname.trim(),
                 this.state.email.trim(),
-                this.state.password.trim()).then(this.setState({successDestination: "Login"}))
+                this.state.password.trim())
+              alert('Account created successfully')
+              this.props.navigation.navigate('Login')
               }
             }
             />
