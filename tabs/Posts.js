@@ -132,6 +132,7 @@ export default class Posts extends Component {
             {this.state.posts.map((post, index) => {
                 return(
                     <PostBlock
+                    key={index}
                     uploader={`${post.user.firstname} ${post.user.lastname}`}
                     post={post.post}
                     createdAt={this.convertTimestamp(post.created_at)}
