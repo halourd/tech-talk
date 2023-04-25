@@ -14,6 +14,16 @@ export default class Profile extends Component {
     render(){
         return(
             <View>
+                <View>
+                    
+                </View>
+
+
+
+
+
+
+
                 <CustomButton
                 on_press={() => {
                     this.UserApi.logout(),
@@ -22,6 +32,7 @@ export default class Profile extends Component {
                 name="Logout"
                 margin_Top={20}
                 />
+
             </View>
         )
     }

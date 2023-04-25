@@ -29,7 +29,7 @@ const common = StyleSheet.create({
 
     title: {
         marginVertical: 30,
-        marginTop: 60,
+        marginTop: 30,
         fontSize: 22,
         fontWeight: 'bold'
     },

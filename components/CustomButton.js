@@ -13,6 +13,7 @@ export default class CustomButton extends Component {
                 activeOpacity={0.8}
                 style={{
                     marginTop: this.props.margin_Top, 
+                    // backgroundColor: this.props.disabled ? "#514D5A":"#272232"
                 }}
                 onPress={()=> {
                     this.props.destination ? this.props.navigation.navigate(this.props.destination):null,

@@ -142,8 +142,6 @@ export default class Posts extends Component {
 
             </ScrollView>
 
-
-
             <Modal
             animationType="slide"
             visible={this.state.isModalVisible}

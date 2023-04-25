@@ -14,4 +14,8 @@ export class UserApi {
     request = new Request(user.token);
     return request.post("logout").then(console.log('Logged out'));
   }
+
+  register (f_name, l_name, email, password){
+    return request.post('register', {firstname: f_name, lastname: l_name, email: email, password: password});
+  }
 }

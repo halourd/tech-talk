@@ -66,23 +66,16 @@ export default class Login extends Component {
           navigation={this.props.navigation}
           name="LOGIN" 
           margin_Top={50} 
-          destination={this.state.successDestination == "Home" ? "Home" : null }
           on_press={async ()=>{
-            // try{
               let [res, error] = await this.UserApi.login(this.state.email, this.state.password);
 
               if(error){
-                // console.log(this.state.email)
-                // console.log(this.state.password)
-                // console.log('has an erorr')
                 this.setState({errMessage: error})
                 alert(this.state.errMessage)
                 this.setState({successDestination: null})
                 this.setState({email: "", password: ""})
                 console.log(error)
               }else{
-                // console.log(this.state.email)
-                // console.log(this.state.password)
                 await setStorage('user', res.data.token);
                 console.log('[SUCCESS] Key successfully stored.')
                 this.setState({successDestination: "Home"})
